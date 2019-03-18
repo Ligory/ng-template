@@ -1,21 +1,20 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
+    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2016", "dom"],
+    "paths": {
+      // https://github.com/angular/angular-cli/issues/6137#issuecomment-387708972
+      "moment": ["../node_modules/moment/min/moment.min.js"]
+    }
   }
 }

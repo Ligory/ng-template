@@ -1,0 +1,20 @@
+<div [ngClass]="messageTypeClass">
+  <div class="tms-message-box-content">
+    <div fxLayout fxLayoutGap="8px" fxLayoutAlign="start center">
+      <ng-container *ngIf="isLoading; else showMessage">
+        <mat-progress-spinner strokeWidth="2.5" diameter="25" mode="indeterminate"></mat-progress-spinner>
+        <p>{{ message }}</p>
+      </ng-container>
+
+      <ng-template #showMessage>
+        <mat-icon [svgIcon]="iconName"></mat-icon>
+        <p>{{ message }}</p>
+        <ng-container *ngIf="messages?.length">
+          <div>
+            <p *ngFor="let message of messages">{{ message }}</p>
+          </div>
+        </ng-container>
+      </ng-template>
+    </div>
+  </div>
+</div>

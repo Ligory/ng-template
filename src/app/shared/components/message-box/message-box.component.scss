@@ -1,0 +1,52 @@
+.app-message-box {
+  border: 1px solid;
+  border-radius: 0.1875rem;
+  box-sizing: border-box;
+  font-size: 0.875rem;
+  font-weight: normal;
+  padding: 4px 8px;
+  position: relative;
+  color: #001927;
+}
+
+.app-app-theme .app-message-box {
+  color: #001927;
+}
+
+.app-dark-theme .app-message-box {
+  color: white;
+}
+
+.app-message-box-success {
+  background-color: #e4f6e4;
+  border-color: #38a338;
+}
+
+.app-message-box-info {
+  background-color: #e6f2fa;
+  border-color: #2c95cf;
+}
+
+.app-dark-theme .app-message-box-info {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: #2c95cf;
+}
+
+.app-message-box-warning {
+  background-color: #fef0db;
+  border-color: #f9a429;
+}
+
+.app-message-box-error {
+  background-color: #ffe4e4;
+  border-color: #ee0000;
+}
+
+.app-message-box-content {
+  padding: 0px;
+}
+
+.app-message-box-content p {
+  margin: 0px;
+  color: inherit;
+}

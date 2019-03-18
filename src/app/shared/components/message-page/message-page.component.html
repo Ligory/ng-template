@@ -1,0 +1,14 @@
+<div style="margin:4px">
+  <div *ngIf="errorObject && !isLoading" [ngClass]="colorClass" [fxLayout]="layout" fxLayoutGap="4px" fxLayoutAlign="start center">
+    <mat-icon [svgIcon]="iconName" [ngClass]="iconSizeClass"></mat-icon>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <span [ngClass]="titleFontSizeClass"> {{ errorObject.errorTitle }} </span>
+      <span [ngClass]="subTitleFontSizeClass"> {{ errorObject.errorDescription }} </span>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" [fxLayout]="layout" fxLayoutGap="8px" fxLayoutAlign="center center">
+    <mat-progress-spinner [diameter]="spinnerDiameter" [strokeWidth]="strokeWidth" mode="indeterminate"></mat-progress-spinner>
+    <span class="app-subtitle-color">Fetching {{ title?.toLowerCase() }}...</span>
+  </div>
+</div>
