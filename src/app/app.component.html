@@ -6,8 +6,12 @@
       style="z-index: 10;position: relative;box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);"
     >
       <!-- quick navigation buttons -->
-      <button mat-icon-button (click)="sidenavLeft.toggle()"><mat-icon [svgIcon]="appService.iconSet.menu"></mat-icon></button>
-      <button mat-icon-button routerLink="/"><mat-icon [svgIcon]="appService.iconSet.home"></mat-icon></button>
+      <button mat-icon-button (click)="sidenavLeft.toggle()">
+        <mat-icon [svgIcon]="appService.iconSet.menu"></mat-icon>
+      </button>
+      <button mat-icon-button routerLink="/">
+        <mat-icon [svgIcon]="appService.iconSet.home"></mat-icon>
+      </button>
 
       <!-- title in the center -->
       <div ngStyle.gt-xs="position: absolute; left:50%" fxLayout="row wrap">
@@ -28,11 +32,21 @@
       <div style="width: 100%" fxLayoutAlign="end">
         <!-- <button mat-icon-button (click)="onSearch()"><mat-icon [svgIcon]="appService.iconSet.search"></mat-icon></button> -->
 
-        <button matTooltip="User preference" mat-button fxHide.lt-lg (click)="showUserPreference()">
+        <button
+          matTooltip="User preference"
+          mat-button
+          fxHide.lt-lg
+          (click)="showUserPreference()"
+        >
           <mat-icon [svgIcon]="appService.iconSet.circleAccount"></mat-icon>
           {{ appService.user?.displayName }}
         </button>
-        <button matTooltip="User preference" mat-icon-button fxHide.lg (click)="showUserPreference()">
+        <button
+          matTooltip="User preference"
+          mat-icon-button
+          fxHide.lg
+          (click)="showUserPreference()"
+        >
           <mat-icon [svgIcon]="appService.iconSet.circleAccount"></mat-icon>
         </button>
         <!-- <button matTooltip="Notifications" mat-icon-button (click)="notificationSidenav.toggle()">
@@ -75,18 +89,36 @@
 
   <!-- body of the app -->
 
-  <mat-sidenav-container style="display:block; flex:1; width:100%; position: relative">
+  <mat-sidenav-container
+    style="display:block; flex:1; width:100%; position: relative"
+  >
     <!-- typical side menu -->
-    <mat-sidenav ngStyle.lg="min-width:24vw;max-width:27.5vw" #sidenavLeft mode="over" [opened]="isSideNavOpened">
+    <mat-sidenav
+      ngStyle.lg="min-width:24vw;max-width:27.5vw"
+      #sidenavLeft
+      mode="over"
+      [opened]="isSideNavOpened"
+    >
       Side Nav content
     </mat-sidenav>
     <!-- notifications in the right side -->
-    <mat-sidenav ngStyle.lg="min-width:25vw;max-width:27.5vw" #notificationSidenav position="end" mode="over">
+    <mat-sidenav
+      ngStyle.lg="min-width:25vw;max-width:27.5vw"
+      #notificationSidenav
+      position="end"
+      mode="over"
+    >
       No notifications
     </mat-sidenav>
     <!-- Component based on routing -->
-    <div style="overflow:auto;display:block;height:100%;width:100%;" [@routerTransition]="getState(route)">
-      <router-outlet #route="outlet"></router-outlet>
+    <div
+      style="overflow:auto;display:block;height:100%;width:100%;"
+      [@routerTransition]="animationState"
+    >
+      <router-outlet
+        #route="outlet"
+        (activate)="onRouteActivate($event)"
+      ></router-outlet>
       <router-outlet name="popup"></router-outlet>
     </div>
   </mat-sidenav-container>

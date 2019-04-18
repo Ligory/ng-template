@@ -13,15 +13,19 @@ import { routerTransition } from 'app/shared';
 export class AppComponent {
   static previousRouteDepth = 0;
 
+  animationState = 0;
   isSideNavOpened = false;
   sideNavMode = 'side';
 
-  constructor(public appService: AppService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    public appService: AppService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   showUserPreference() {}
 
-  getState(outlet) {
-    let returnValue;
+  onRouteActivate($event) {
     let currentDepth = 0;
     let isLastChild = true;
     let snapShot = this.route.snapshot;
@@ -35,19 +39,23 @@ export class AppComponent {
       if (snapShot.firstChild) {
         snapShot = snapShot.firstChild;
       } else {
-        returnValue = snapShot.data || snapShot.routeConfig.path;
+        // 'routeLevel' to be defined in each router module
+        currentDepth += snapShot.data['routeLevel'] || 0;
         isLastChild = false;
       }
     }
 
-    // if (AppComponent.previousRouteDepth > currentDepth) {
-    //   returnValue = 'back';
-    // } else {
-    //   returnValue = 'front';
-    // }
+    if (currentDepth === AppComponent.previousRouteDepth) {
+      throw new Error(
+        'Route level is same. Configure appropriate route level in router module.'
+      );
+      // you can also increment by 1 to make it slide from Right to Left
+      // currentDepth++;
+    }
+
     AppComponent.previousRouteDepth = currentDepth;
 
-    return returnValue;
+    this.animationState = currentDepth;
   }
 
   logout() {}

@@ -1,43 +1,27 @@
-import { trigger, animate, style, query, transition, AnimationTriggerMetadata } from '@angular/animations';
+import { trigger, animate, style, query, transition, AnimationTriggerMetadata, group } from '@angular/animations';
 
-export const routerTransition: AnimationTriggerMetadata = trigger('routerTransition', [
-  transition('* <=> *', [
-    // Initial state of new route
-    query(
-      ':enter',
-      style({
-        position: 'fixed',
-        width: '100%',
-        transform: 'translateX(-100%)'
-      }),
-      { optional: true }
-    ),
-
-    // move page off screen right on leave
-    query(
-      ':leave',
-      animate(
-        '0.25s ease',
-        style({
-          position: 'fixed',
-          width: '100%',
-          transform: 'translateX(100%)'
-        })
-      ),
-      { optional: true }
-    ),
-
-    // move page in screen from left to right
-    query(
-      ':enter',
-      animate(
-        '0.25s ease',
-        style({
-          opacity: 1,
-          transform: 'translateX(0%)'
-        })
-      ),
-      { optional: true }
-    )
+const left = [
+  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
+  group([
+    query(':enter', [style({ transform: 'translateX(-100%)' }), animate('.25s ease-out', style({ transform: 'translateX(0%)' }))], {
+      optional: true
+    }),
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.25s ease-out', style({ transform: 'translateX(100%)' }))], {
+      optional: true
+    })
   ])
-]);
+];
+
+const right = [
+  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
+  group([
+    query(':enter', [style({ transform: 'translateX(100%)' }), animate('.25s ease-out', style({ transform: 'translateX(0%)' }))], {
+      optional: true
+    }),
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.25s ease-out', style({ transform: 'translateX(-100%)' }))], {
+      optional: true
+    })
+  ])
+];
+
+export const routerTransition = trigger('routerTransition', [transition(':increment', right), transition(':decrement', left)]);
